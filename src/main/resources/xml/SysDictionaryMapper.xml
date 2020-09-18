@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.SysDictionaryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entities.SysDictionary">
+        <result column="id" property="id" />
+        <result column="display_name" property="displayName" />
+        <result column="type" property="type" />
+        <result column="pid" property="pid" />
+        <result column="num" property="num" />
+        <result column="value_str" property="valueStr" />
+        <result column="sort" property="sort" />
+        <result column="values_str" property="valuesStr" />
+        <result column="isvalid" property="isvalid" />
+        <result column="explains" property="explains" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, display_name, type, pid, num, value_str, sort, values_str, isvalid, explains
+    </sql>
+
+</mapper>

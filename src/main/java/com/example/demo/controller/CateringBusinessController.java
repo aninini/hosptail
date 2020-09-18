@@ -183,7 +183,10 @@ public class CateringBusinessController {
                 userCase.setUserName(sysContactCases.get(i).getContactName());
                 userCase.setBusiness_id(business.getBusinessId());
                 userCase.setTelephone(sysContactCases.get(i).getPhoneNumber());
+
+                //TODO 这个id未完成
                 userCase.setTypeId(111L);
+
                 userCase.setRole_id(sysRoleCase.getRoleId());
                 if (!userCaseService.save(userCase)) {
                     throw new RuntimeException("管理员添加失败");
