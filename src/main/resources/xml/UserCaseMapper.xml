@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserCaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entities.UserCase">
+        <id column="user_id" property="userId" />
+        <result column="user_name" property="userName" />
+        <result column="telephone" property="telephone" />
+        <result column="real_name" property="realName" />
+        <result column="sex" property="sex" />
+        <result column="password" property="password"/>
+        <result column="pwd" property="pwd"/>
+        <result column="token" property="token"/>
+        <result column="type_id" property="typeId"/>
+        <result column="creation_time" property="creationTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        user_id, user_name, telephone, real_name, sex, creation_time, update_time
+    </sql>
+    <select id="selectUsers" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM user_case
+        WHERE
+        1 = 1
+        <if test="filter.id!=null and filter.id!=''">
+            AND id= #{filter.id}
+        </if>
+        <if test="filter.username!=null and filter.username!=''">
+            AND username LIKE '%${filter.username}%'
+        </if>
+        <if test="filter.account!=null and filter.account!=''">
+            AND username = #{filter.account}
+        </if>
+        ORDER BY id DESC
+    </select>
+
+    <select id="selectUserByUsername" resultType="com.example.demo.entities.UserCase">
+        SELECT
+        *
+        FROM user_case
+        WHERE 1 = 1
+        <if test="username!=null and username!=''">
+            AND username = #{username}
+        </if>
+    </select>
+
+    <select id="getUserInfoByToken" resultType="com.example.demo.entities.UserCase">
+        SELECT
+        *
+        FROM user_case
+        WHERE 1 = 1
+        <if test="token!=null and token!=''">
+            AND token = #{token}
+        </if>
+    </select>
+
+    <select id="getUserInfoByWX" resultType="com.example.demo.entities.UserCase">
+        SELECT
+        *
+        FROM user_case
+        WHERE 1 = 1
+        <if test="qq_oppen_id!=null and qq_oppen_id!=''">
+            AND qq_oppen_id = #{qq_oppen_id}
+        </if>
+    </select>
+
+    <select id="selectUserByRoleId" resultType="com.example.demo.entities.UserCase">
+        SELECT su.* FROM user_case su
+        LEFT JOIN user_role sur ON su.id=sur.user_id
+        WHERE sur.role_id = #{roleId}
+    </select>
+</mapper>

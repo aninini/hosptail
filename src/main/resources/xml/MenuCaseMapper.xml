@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.MenuCaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entities.SysMenuCase">
+        <id column="id" property="id" />
+        <result column="parent_id" property="parentId" />
+        <result column="url" property="url" />
+        <result column="resources" property="resources" />
+        <result column="title" property="title" />
+        <result column="level" property="level" />
+        <result column="sort_no" property="sortNo" />
+        <result column="icon" property="icon" />
+        <result column="type" property="type" />
+        <result column="remarks" property="remarks" />
+        <result column="mode_code" property="modeCode" />
+        <result column="creation_time" property="creationTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, parent_id, url, resources, title, level, sort_no, icon, type, remarks, mode_code, creation_time, update_time
+    </sql>
+
+    <select id="selectMenus" resultMap="BaseResultMap">
+        SELECT
+        *
+        FROM menu_case
+        WHERE
+        1 = 1
+        <if test="filter.id!=null and filter.id!=''">
+            AND id= #{filter.id}
+        </if>
+        ORDER BY id DESC
+    </select>
+
+    <select id="findByResources" resultType="com.example.demo.entities.SysMenuCase">
+        SELECT
+        *
+        FROM menu_case
+        WHERE
+        1 = 1
+        <if test="resources!=null and resources!=''">
+            AND resources = #{resources}
+        </if>
+    </select>
+
+    <select id="selectMenuByRoleId" resultType="com.example.demo.entities.SysMenuCase">
+        SELECT sm.* FROM menu_case sm
+        LEFT JOIN role_menu srm ON sm.id = srm.menu_id
+        WHERE srm.role_id = #{roleId}
+    </select>
+</mapper>

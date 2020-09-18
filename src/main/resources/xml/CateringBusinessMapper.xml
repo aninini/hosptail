@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CateringBusinessMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.demo.entities.SysCateringBusiness">
+        <id column="business_id" property="businessId" />
+        <result column="business_name" property="businessName" />
+        <result column="business_short_name" property="businessShortName" />
+        <result column="tax_file_number" property="taxFileNumber" />
+        <result column="legal_person" property="legalPerson" />
+        <result column="telephone" property="telephone" />
+        <result column="address" property="address" />
+        <result column="qr_code" property="qrCode" />
+        <result column="creation_time" property="creationTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        business_id, business_name, business_short_name, tax_file_number, legal_person, telephone, address, qr_code, creation_time, update_time
+    </sql>
+
+</mapper>
