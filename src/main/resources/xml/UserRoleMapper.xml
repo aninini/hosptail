@@ -19,7 +19,7 @@
     <select id="selectUserRoles" resultMap="BaseResultMap">
         SELECT
         *
-        FROM user_role
+        FROM sys_user_role
         WHERE
         1 = 1
         <if test="filter.id!=null and filter.id!=''">
@@ -32,7 +32,7 @@
     </select>
 
     <delete id="deleteByRoleId">
-        DELETE FROM user_role
+        DELETE FROM sys_user_role
         WHERE 1=1
         <if test="roleId!=null">
             AND role_id = #{roleId}
@@ -43,8 +43,8 @@
         SELECT
         r.*
         FROM
-        user_role ur
-        LEFT JOIN role_case r ON ur.role_id = r.role_id
+        sys_user_role ur
+        LEFT JOIN sys_role_case r ON ur.role_id = r.role_id
         WHERE 1=1
         <if test="userId!=null">
             AND user_id = #{userId}

@@ -11,6 +11,7 @@ import com.example.demo.entities.vo.UserInfoVO;
 import com.example.demo.mapper.RoleMenuMapper;
 import com.example.demo.mapper.UserCaseMapper;
 import com.example.demo.mapper.UserRoleMapper;
+import com.example.demo.service.IMenuCaseService;
 import com.example.demo.service.IUserCaseService;
 import com.example.demo.utils.EmptyUtil;
 import com.example.demo.utils.TreeBuilder;
@@ -40,6 +41,8 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
     UserRoleMapper userRoleMapper;
     @Resource
     RoleMenuMapper roleMenuMapper;
+    @Resource
+    IMenuCaseService menuCaseService;
 
     @Override
     public UserInfoVO getCurrentUserInfo(String token) {
@@ -57,7 +60,12 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
             roles.add(roleList.get(0).getRoleId().toString());
 
             //查询某个角色的菜单
-            List<SysMenuCase> menuList = roleMenuMapper.selectMenusByRoleId(roleList.get(0).getRoleId());
+            List<SysMenuCase> menuList;
+            if (roleList.get(0).getRoleId() == 1L) {
+                menuList = menuCaseService.list();
+            }else {
+                menuList = roleMenuMapper.selectMenusByRoleId(roleList.get(0).getRoleId());
+            }
             if (menuList != null && !menuList.isEmpty()) {
                 menuList.stream().filter(Objects::nonNull).forEach(menu -> {
                     if ("button".equals(menu.getType().toLowerCase())) {
@@ -84,10 +92,10 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
     @Transactional
     @Override
     public boolean addUser(UserCase userCase) {
-        EmptyUtil.isEmpty(userCase.getUserName(),"用户姓名不能为空");
-        EmptyUtil.isEmpty(userCase.getTypeId(),"请选择用户类型");
-        EmptyUtil.isEmpty(userCase.getBusiness_id(),"请选择用户企业");
-        EmptyUtil.isEmpty(userCase.getRole_id(),"请选择用户角色");
+        EmptyUtil.isEmpty(userCase.getUserName(), "用户姓名不能为空");
+        EmptyUtil.isEmpty(userCase.getTypeId(), "请选择用户类型");
+        EmptyUtil.isEmpty(userCase.getBusiness_id(), "请选择用户企业");
+        EmptyUtil.isEmpty(userCase.getRole_id(), "请选择用户角色");
         return this.save(userCase);
     }
 }

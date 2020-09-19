@@ -27,7 +27,7 @@
     <select id="selectMenus" resultMap="BaseResultMap">
         SELECT
         *
-        FROM menu_case
+        FROM sys_menu_case
         WHERE
         1 = 1
         <if test="filter.id!=null and filter.id!=''">
@@ -39,7 +39,7 @@
     <select id="findByResources" resultType="com.example.demo.entities.SysMenuCase">
         SELECT
         *
-        FROM menu_case
+        FROM sys_menu_case
         WHERE
         1 = 1
         <if test="resources!=null and resources!=''">
@@ -48,8 +48,8 @@
     </select>
 
     <select id="selectMenuByRoleId" resultType="com.example.demo.entities.SysMenuCase">
-        SELECT sm.* FROM menu_case sm
-        LEFT JOIN role_menu srm ON sm.id = srm.menu_id
+        SELECT sm.* FROM sys_menu_case sm
+        LEFT JOIN sys_role_menu srm ON sm.id = srm.menu_id
         WHERE srm.role_id = #{roleId}
     </select>
 </mapper>

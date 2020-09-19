@@ -20,16 +20,16 @@
         SELECT
         sr.*, (
         CASE
-        WHEN (SELECT COUNT(sur.id) FROM user_role sur WHERE sur.role_id = sr.role_id ) THEN '1'
+        WHEN (SELECT COUNT(sur.id) FROM sys_user_role sur WHERE sur.role_id = sr.role_id ) THEN '1'
         ELSE '0'
         END) AS isRelatedSysUser,
         (
         CASE
-        WHEN ( SELECT COUNT(srp.id) FROM role_menu srp WHERE srp.role_id = sr.role_id ) THEN '1'
+        WHEN ( SELECT COUNT(srp.id) FROM sys_role_menu srp WHERE srp.role_id = sr.role_id ) THEN '1'
         ELSE '0'
         END ) AS isRelatedSysMenu
         FROM
-        role_case sr
+        sys_role_case sr
         WHERE
         1 = 1
         <if test="filter.name!=null and filter.name!=''">
@@ -39,14 +39,14 @@
     </select>
 
     <select id="selectRoleByUserId" resultType="com.example.demo.entities.SysRoleCase">
-        SELECT sr.* FROM role_case sr
-        LEFT JOIN user_role sur ON sr.role_id=sur.role_id
+        SELECT sr.* FROM sys_role_case sr
+        LEFT JOIN sys_user_role sur ON sr.role_id=sur.role_id
         WHERE sur.user_id = #{userId}
     </select>
 
     <select id="selectRoleByMenuId" resultType="com.example.demo.entities.SysRoleCase">
-        SELECT sr.* FROM role_case sr
-        LEFT JOIN role_menu srm ON sr.role_id=srm.role_id
+        SELECT sr.* FROM sys_role_case sr
+        LEFT JOIN sys_role_menu srm ON sr.role_id=srm.role_id
         WHERE srm.menu_id = #{menuId}
     </select>
 

@@ -36,7 +36,7 @@ public class TreeBuilder {
      */
     private static MenuVO findChildren(MenuVO treeNode, Set<MenuVO> treeNodes) {
         for (MenuVO it : treeNodes) {
-            if (String.valueOf(treeNode.getId()).equals(it.getParentId())) {
+            if (treeNode.getId() == it.getParentId()) {
                 treeNode.getChildren().add(findChildren(it, treeNodes));
             }
         }
