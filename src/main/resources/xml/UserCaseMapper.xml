@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.UserCaseMapper">
+<mapper namespace="com.bjblkj.check.mapper.UserCaseMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.example.demo.entities.UserCase">
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.UserCase">
         <id column="user_id" property="userId" />
         <result column="user_name" property="userName" />
         <result column="telephone" property="telephone" />
@@ -39,7 +39,7 @@
         ORDER BY id DESC
     </select>
 
-    <select id="selectUserByUsername" resultType="com.example.demo.entities.UserCase">
+    <select id="selectUserByUsername" resultType="com.bjblkj.check.entities.UserCase">
         SELECT
         *
         FROM user_case
@@ -49,7 +49,7 @@
         </if>
     </select>
 
-    <select id="getUserInfoByToken" resultType="com.example.demo.entities.UserCase">
+    <select id="getUserInfoByToken" resultType="com.bjblkj.check.entities.UserCase">
         SELECT
         *
         FROM user_case
@@ -59,7 +59,7 @@
         </if>
     </select>
 
-    <select id="getUserInfoByWX" resultType="com.example.demo.entities.UserCase">
+    <select id="getUserInfoByWX" resultType="com.bjblkj.check.entities.UserCase">
         SELECT
         *
         FROM user_case
@@ -69,7 +69,7 @@
         </if>
     </select>
 
-    <select id="selectUserByRoleId" resultType="com.example.demo.entities.UserCase">
+    <select id="selectUserByRoleId" resultType="com.bjblkj.check.entities.UserCase">
         SELECT su.* FROM user_case su
         LEFT JOIN user_role sur ON su.id=sur.user_id
         WHERE sur.role_id = #{roleId}

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.CateringBusinessMapper">
+<mapper namespace="com.bjblkj.check.mapper.CateringBusinessMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.example.demo.entities.SysCateringBusiness">
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.SysCateringBusiness">
         <id column="business_id" property="businessId" />
         <result column="business_name" property="businessName" />
         <result column="business_short_name" property="businessShortName" />

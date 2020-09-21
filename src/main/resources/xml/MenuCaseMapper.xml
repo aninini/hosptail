@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.example.demo.mapper.MenuCaseMapper">
+<mapper namespace="com.bjblkj.check.mapper.MenuCaseMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.example.demo.entities.SysMenuCase">
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.SysMenuCase">
         <id column="id" property="id" />
         <result column="parent_id" property="parentId" />
         <result column="url" property="url" />
@@ -36,7 +36,7 @@
         ORDER BY id DESC
     </select>
 
-    <select id="findByResources" resultType="com.example.demo.entities.SysMenuCase">
+    <select id="findByResources" resultType="com.bjblkj.check.entities.SysMenuCase">
         SELECT
         *
         FROM sys_menu_case
@@ -47,7 +47,7 @@
         </if>
     </select>
 
-    <select id="selectMenuByRoleId" resultType="com.example.demo.entities.SysMenuCase">
+    <select id="selectMenuByRoleId" resultType="com.bjblkj.check.entities.SysMenuCase">
         SELECT sm.* FROM sys_menu_case sm
         LEFT JOIN sys_role_menu srm ON sm.id = srm.menu_id
         WHERE srm.role_id = #{roleId}

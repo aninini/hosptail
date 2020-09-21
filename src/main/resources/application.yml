@@ -76,6 +76,9 @@ mybatis-plus:
     # 解决oracle更新数据为null时无法转换报错，mysql不会出现此情况
     jdbc-type-for-null: 'null'
 
+snowflake:
+  epolldate: 2020-09-09 18:00:00.000
+
 lizhishen:
   #安全认证
   auth:
