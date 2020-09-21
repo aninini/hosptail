@@ -1,8 +1,11 @@
 package com.bjblkj.check.entities;
 
     import com.alibaba.fastjson.annotation.JSONField;
+    import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.annotation.TableId;
     import com.bjblkj.check.common.entity.BaseEntity;
+    import io.swagger.annotations.ApiModel;
+    import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -18,82 +21,50 @@ package com.bjblkj.check.entities;
     @Data
     @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
+    @ApiModel(description = "用户实体类")
     public class UserCase extends BaseEntity<UserCase> {
 
     private static final long serialVersionUID = 1L;
 
-            /**
-            * 用户ID
-            */
-            @TableId
+    @TableId(type = IdType.NONE)
+    @ApiModelProperty(value = "用户id")
     private Long userId;
 
-            /**
-            * 用户名称
-            */
+    @ApiModelProperty(value = "用户名称")
     private String userName;
 
-            /**
-            * 电话号
-            */
+    @ApiModelProperty(value = "电话号")
     private String telephone;
 
-            /**
-            * 真实姓名
-            */
+    @ApiModelProperty(value = "真实姓名")
     private String realName;
 
-            /**
-            * 密码
-            */
-            @JSONField(name = "password")
+    @ApiModelProperty(value = "密码")
+    @JSONField(name = "password")
     private String pwd;
 
-
-            /**
-            * 性别
-            */
+    @ApiModelProperty(value = "状态")
     private String flag;
 
-            /**
-            * 性别
-            */
+    @ApiModelProperty(value = "所属企业ID")
     private Long businessId;
 
-            /**
-            * 性别
-            */
-    private Long roleId;
-
-            /**
-            * 性别
-            */
+    @ApiModelProperty(value = "性别")
     private String sex;
 
-            /**
-            * 性别
-            */
+    @ApiModelProperty(value = "邮件")
     private String email;
 
-    /**
-     * 性别
-     */
+    @ApiModelProperty(value = "职称")
     private String position;
 
-    /**
-     * 性别
-     */
+    @ApiModelProperty(value = "部门ID")
     private Long departmentId;
 
-    /**
-     * 类型
-     */
+    @ApiModelProperty(value = "类型ID")
     private Long typeId;
 
-    /**
-     * token
-     */
+    @ApiModelProperty(value = "token")
     private String token;
-
 
 }

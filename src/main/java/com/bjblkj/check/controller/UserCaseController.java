@@ -44,19 +44,4 @@ public class UserCaseController {
         return Ret.upJudge(b,"添加用户");
     }
 
-    @PostMapping(value = "/treeUser", produces = "application/json;charset=utf-8")
-    @ApiOperation(value = "获取用户树", httpMethod = "POST", response = Ret.class)
-    public Ret treeUser() {
-        List<UserCase> list = userService.list(null);
-        List<UserTreeNode> userTreeNodeList = new ArrayList<>();
-        list.forEach(temp -> {
-            UserTreeNode userTreeNode = new UserTreeNode();
-            BeanUtil.copyProperties(temp, userTreeNode);
-            userTreeNodeList.add(userTreeNode);
-        });
-        JSONObject json = new JSONObject();
-        json.put("userList", list);
-        json.put("userTree", userTreeNodeList);
-        return Ret.ok("获取用户树成功", json);
-    }
 }

@@ -79,6 +79,10 @@ mybatis-plus:
 snowflake:
   epolldate: 2020-09-09 18:00:00.000
 
+otherconfig:
+  workId: 0
+  dataCenterId: 0
+
 lizhishen:
   #安全认证
   auth:

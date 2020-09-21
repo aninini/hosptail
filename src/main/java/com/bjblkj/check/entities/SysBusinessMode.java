@@ -1,7 +1,10 @@
 package com.bjblkj.check.entities;
 
+    import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.annotation.TableId;
     import com.bjblkj.check.common.entity.BaseEntity;
+    import io.swagger.annotations.ApiModel;
+    import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -17,24 +20,19 @@ package com.bjblkj.check.entities;
     @Data
     @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
+    @ApiModel(description = "企业模块实体类")
     public class SysBusinessMode extends BaseEntity<SysBusinessMode> {
 
     private static final long serialVersionUID = 1L;
 
-            /**
-            * 主键
-            */
-    @TableId
+    @TableId(type = IdType.NONE)
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-            /**
-            * 企业ID
-            */
+    @ApiModelProperty(value = "企业ID")
     private Long businessId;
 
-            /**
-            * 模块编号
-            */
+    @ApiModelProperty(value = "模块编号")
     private String modeCode;
 
 

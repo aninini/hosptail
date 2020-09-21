@@ -2,8 +2,10 @@ package com.bjblkj.check.entities;
 
     import java.math.BigDecimal;
 
+    import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.annotation.TableId;
     import com.bjblkj.check.common.entity.BaseEntity;
+    import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -17,58 +19,38 @@ package com.bjblkj.check.entities;
 * @since 2020-09-10
 */
     @Data
-        @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     public class SysUserBalance extends BaseEntity<SysUserBalance> {
 
     private static final long serialVersionUID = 1L;
 
-            /**
-            * 主键
-            */
-            @TableId
+    @TableId(type = IdType.NONE)
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-            /**
-            * 用户类型
-            */
+    @ApiModelProperty(value = "主键")
     private String type;
 
-            /**
-            * 微信openId
-            */
+    @ApiModelProperty(value = "主键")
     private String openId;
 
-            /**
-            * 用户ID
-            */
+    @ApiModelProperty(value = "主键")
     private Long userId;
 
-            /**
-            * 餐饮企业ID
-            */
+    @ApiModelProperty(value = "主键")
     private Long businessId;
 
-            /**
-            * 餐饮企业用户分类编号ID
-            */
+    @ApiModelProperty(value = "主键")
     private String numberId;
 
-            /**
-            * 充值余额
-            */
+    @ApiModelProperty(value = "主键")
     private BigDecimal balance;
 
-            /**
-            * 临时锁定额
-            */
+    @ApiModelProperty(value = "主键")
     private BigDecimal temporaryBalance;
 
-            /**
-            * 可用余额
-            */
+    @ApiModelProperty(value = "主键")
     private BigDecimal availableBalance;
-
-
 
 }

@@ -2,8 +2,11 @@ package com.bjblkj.check.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
+import com.bjblkj.check.common.SnowId.IdCommon;
 import com.bjblkj.check.entities.SysMenuCase;
 import com.bjblkj.check.entities.SysRoleCase;
+import com.bjblkj.check.entities.SysUserBalance;
 import com.bjblkj.check.entities.vo.ButtonVO;
 import com.bjblkj.check.entities.vo.MenuVO;
 import com.bjblkj.check.entities.vo.UserInfoVO;
@@ -36,6 +39,8 @@ import java.util.Set;
 public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> implements IUserCaseService {
 
     @Resource
+    private IdCommon idCommon;
+    @Resource
     UserCaseMapper userMapper;
     @Resource
     UserRoleMapper userRoleMapper;
@@ -43,6 +48,12 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
     RoleMenuMapper roleMenuMapper;
     @Resource
     IMenuCaseService menuCaseService;
+
+    @Override
+    public boolean save(UserCase entity){
+        entity.setUserId(idCommon.getLongId());
+        return SqlHelper.retBool(getBaseMapper().insert(entity));
+    };
 
     @Override
     public UserInfoVO getCurrentUserInfo(String token) {
@@ -95,7 +106,6 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
         EmptyUtil.isEmpty(userCase.getUserName(), "用户姓名不能为空");
         EmptyUtil.isEmpty(userCase.getTypeId(), "请选择用户类型");
         EmptyUtil.isEmpty(userCase.getBusinessId(), "请选择用户企业");
-        EmptyUtil.isEmpty(userCase.getRoleId(), "请选择用户角色");
         return this.save(userCase);
     }
 }

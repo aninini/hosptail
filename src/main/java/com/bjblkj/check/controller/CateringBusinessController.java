@@ -4,6 +4,7 @@ package com.bjblkj.check.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bjblkj.check.common.SnowId.IdCommon;
 import com.bjblkj.check.entities.*;
 import com.bjblkj.check.common.dto.output.Ret;
 import com.bjblkj.check.service.*;
@@ -49,6 +50,8 @@ public class CateringBusinessController {
     private IRoleMenuService roleMenuService;
     @Resource
     private IUserRoleService userRoleService;
+    @Resource
+    private IdCommon idCommon;
 
     @Transactional
     @PostMapping(value = "/pagesearch")
@@ -131,6 +134,7 @@ public class CateringBusinessController {
         if (business == null) {
             throw new RuntimeException("公司信息未填写");
         }
+        business.setBusinessId(idCommon.getLongId());
         if (!cateringBusinessService.save(business)) {
             throw new RuntimeException("公司注册失败");
         }
@@ -142,6 +146,7 @@ public class CateringBusinessController {
         }
         for (String mode : mods) {
             SysBusinessMode sysBusinessMode = new SysBusinessMode();
+            sysBusinessMode.setId(idCommon.getLongId());
             sysBusinessMode.setBusinessId(business.getBusinessId());
             sysBusinessMode.setModeCode(mode);
             if (!businessModeService.save(sysBusinessMode)) {
@@ -186,7 +191,7 @@ public class CateringBusinessController {
                 //TODO 这个id未完成
                 userCase.setTypeId(111L);
 
-                userCase.setRoleId(sysRoleCase.getRoleId());
+//                userCase.setRoleId(sysRoleCase.getRoleId());
                 if (!userCaseService.save(userCase)) {
                     throw new RuntimeException("管理员添加失败");
                 }

@@ -2,8 +2,11 @@ package com.bjblkj.check.entities;
 
     import java.util.Date;
 
+    import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.annotation.TableId;
     import com.bjblkj.check.common.entity.BaseEntity;
+    import io.swagger.annotations.ApiModel;
+    import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -17,46 +20,33 @@ package com.bjblkj.check.entities;
 * @since 2020-09-10
 */
     @Data
-        @EqualsAndHashCode(callSuper = false)
+    @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
+    @ApiModel(description = "企业合同实体类")
     public class SysBusinessRecord extends BaseEntity<SysBusinessRecord> {
 
     private static final long serialVersionUID = 1L;
 
-            /**
-            * 业务ID
-            */
-            @TableId
+    @TableId(type = IdType.NONE)
+    @ApiModelProperty(value = "业务ID")
     private Long recordId;
 
-            /**
-            * 企业ID
-            */
+    @ApiModelProperty(value = "企业ID")
     private Long businessId;
 
-            /**
-            * 合同号
-            */
+    @ApiModelProperty(value = "合同号")
     private String contractNumber;
 
-            /**
-            * 开始时间
-            */
+    @ApiModelProperty(value = "开始时间")
     private Date startTime;
 
-            /**
-            * 到期时间
-            */
+    @ApiModelProperty(value = "到期时间")
     private Date endTime;
 
-            /**
-            * 业务员名称
-            */
+    @ApiModelProperty(value = "业务员名称")
     private String salesName;
 
-            /**
-            * 企业联系人ID
-            */
+    @ApiModelProperty(value = "企业联系人ID")
     private Long contactId;
 
 

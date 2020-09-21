@@ -1,7 +1,10 @@
 package com.bjblkj.check.entities;
 
+    import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.annotation.TableId;
     import com.bjblkj.check.common.entity.BaseEntity;
+    import io.swagger.annotations.ApiModel;
+    import io.swagger.annotations.ApiModelProperty;
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -17,64 +20,43 @@ package com.bjblkj.check.entities;
     @Data
     @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
+    @ApiModel(description = "菜单实体类")
     public class SysMenuCase extends BaseEntity<SysMenuCase> {
 
     private static final long serialVersionUID = 1L;
 
-            /**
-            * 资源ID
-            */
-            @TableId
+    @TableId(type = IdType.NONE)
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-            /**
-            * 上级资源ID
-            */
+    @ApiModelProperty(value = "上级资源ID")
     private Long parentId;
 
-            /**
-            * URL
-            */
+    @ApiModelProperty(value = "URL")
     private String url;
 
-            /**
-            * 资源编码
-            */
+    @ApiModelProperty(value = "资源编码")
     private String resources;
 
-            /**
-            * 资源名称
-            */
+    @ApiModelProperty(value = "资源名称")
     private String title;
 
-            /**
-            * 资源级别
-            */
+    @ApiModelProperty(value = "资源级别")
     private Integer level;
 
-            /**
-            * 排序
-            */
+    @ApiModelProperty(value = "排序")
     private Integer sortNo;
 
-            /**
-            * 资源图标
-            */
+    @ApiModelProperty(value = "资源图标")
     private String icon;
 
-            /**
-            * 类型
-            */
+    @ApiModelProperty(value = "类型")
     private String type;
 
-            /**
-            * 备注
-            */
+    @ApiModelProperty(value = "备注")
     private String remarks;
 
-            /**
-            * 模块编号
-            */
+    @ApiModelProperty(value = "模块编号")
     private String modeCode;
 
 
