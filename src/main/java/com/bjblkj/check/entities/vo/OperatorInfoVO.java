@@ -7,14 +7,14 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Data
-public class UserInfoVO implements Serializable {
+public class OperatorInfoVO implements Serializable {
 
-    private Long userId;
+    private Long operatorId;
 
     /**
      * 账号
      */
-    private String username;
+    private String operatorName;
 
     private String realName;
 
@@ -37,6 +37,11 @@ public class UserInfoVO implements Serializable {
      * 状态
      */
     private String flag;
+
+    /**
+     * 状态
+     */
+    private String typeId;
 
     private Set<String> roles = Sets.newHashSet();
 

@@ -1,22 +1,24 @@
 package com.bjblkj.check.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.bjblkj.check.common.SnowId.IdCommon;
 import com.bjblkj.check.entities.SysMenuCase;
+import com.bjblkj.check.entities.SysOperatorCase;
 import com.bjblkj.check.entities.SysRoleCase;
-import com.bjblkj.check.entities.SysUserBalance;
 import com.bjblkj.check.entities.vo.ButtonVO;
 import com.bjblkj.check.entities.vo.MenuVO;
-import com.bjblkj.check.entities.vo.UserInfoVO;
+import com.bjblkj.check.entities.vo.OperatorInfoVO;
 import com.bjblkj.check.mapper.RoleMenuMapper;
 import com.bjblkj.check.service.IMenuCaseService;
+import com.bjblkj.check.service.ISysOperatorCaseService;
 import com.bjblkj.check.utils.EmptyUtil;
 import com.bjblkj.check.utils.TreeBuilder;
 import com.bjblkj.check.entities.UserCase;
 import com.bjblkj.check.mapper.UserCaseMapper;
-import com.bjblkj.check.mapper.UserRoleMapper;
+import com.bjblkj.check.mapper.OperatorRoleMapper;
 import com.bjblkj.check.service.IUserCaseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,9 +43,9 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
     @Resource
     private IdCommon idCommon;
     @Resource
-    UserCaseMapper userMapper;
+    ISysOperatorCaseService operatorCaseService;
     @Resource
-    UserRoleMapper userRoleMapper;
+    OperatorRoleMapper operatorRoleMapper;
     @Resource
     RoleMenuMapper roleMenuMapper;
     @Resource
@@ -56,17 +58,17 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
     };
 
     @Override
-    public UserInfoVO getCurrentUserInfo(String token) {
-        UserCase user = userMapper.getUserInfoByToken(token);
-        UserInfoVO userInfoVO = new UserInfoVO();
-        BeanUtil.copyProperties(user, userInfoVO);
+    public OperatorInfoVO getCurrentUserInfo(String token) {
+        SysOperatorCase user = operatorCaseService.getOne(new QueryWrapper<SysOperatorCase>().eq("token",token));
+        OperatorInfoVO operatorInfoVO = new OperatorInfoVO();
+        BeanUtil.copyProperties(user, operatorInfoVO);
 
         Set<String> roles = new HashSet();
         Set<MenuVO> menuVOS = new HashSet();
         Set<ButtonVO> buttonVOS = new HashSet();
 
         //查询某个用户的角色
-        List<SysRoleCase> roleList = userRoleMapper.selectRoleByUserId(user.getUserId());
+        List<SysRoleCase> roleList = operatorRoleMapper.selectRoleByOperatorId(user.getOperatorId());
         if (roleList != null && !roleList.isEmpty()) {
             roles.add(roleList.get(0).getRoleId().toString());
 
@@ -94,10 +96,10 @@ public class UserCaseServiceImpl extends ServiceImpl<UserCaseMapper, UserCase> i
                 });
             }
         }
-        userInfoVO.getRoles().addAll(roles);
-        userInfoVO.getButtons().addAll(buttonVOS);
-        userInfoVO.getMenus().addAll(TreeBuilder.buildTree(menuVOS));
-        return userInfoVO;
+        operatorInfoVO.getRoles().addAll(roles);
+        operatorInfoVO.getButtons().addAll(buttonVOS);
+        operatorInfoVO.getMenus().addAll(TreeBuilder.buildTree(menuVOS));
+        return operatorInfoVO;
     }
 
     @Transactional

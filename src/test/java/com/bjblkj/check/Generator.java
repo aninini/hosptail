@@ -45,7 +45,7 @@ public class Generator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.example.demo");
+        pc.setParent("com.bjblkj.check");
         pc.setEntity("entities");
         mpg.setPackageInfo(pc);
 
@@ -94,7 +94,7 @@ public class Generator {
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setSuperControllerClass("cn.ezios.practice.june.demo.controller.BaseController");
 //        strategy.setInclude("push_case","push_meal","push_meal_cook");
-        strategy.setInclude("sys_dictionary");
+        strategy.setInclude("sys_operator_case");
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

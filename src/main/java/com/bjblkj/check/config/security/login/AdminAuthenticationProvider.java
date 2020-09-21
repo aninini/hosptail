@@ -2,8 +2,10 @@ package com.bjblkj.check.config.security.login;
 
 import com.bjblkj.check.config.security.dto.SecurityUser;
 import com.bjblkj.check.config.security.impl.UserDetailsServiceImpl;
+import com.bjblkj.check.entities.SysOperatorCase;
 import com.bjblkj.check.entities.UserCase;
 import com.bjblkj.check.mapper.UserCaseMapper;
+import com.bjblkj.check.service.ISysOperatorCaseService;
 import com.bjblkj.check.utils.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,7 +27,7 @@ public class AdminAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     UserDetailsServiceImpl userDetailsService;
     @Resource
-    private UserCaseMapper userMapper;
+    private ISysOperatorCaseService operatorCaseService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -58,9 +60,9 @@ public class AdminAuthenticationProvider implements AuthenticationProvider {
 //                .signWith(SignatureAlgorithm.HS512, Constants.SALT)
 //                .compact();
 
-        UserCase user = userMapper.selectById(userInfo.getCurrentUserInfo().getUserId());
+        SysOperatorCase user = operatorCaseService.getById(userInfo.getCurrentUserInfo().getOperatorId());
         user.setToken(token);
-        userMapper.updateById(user);
+        operatorCaseService.updateById(user);
         userInfo.getCurrentUserInfo().setToken(token);
         return new UsernamePasswordAuthenticationToken(userInfo, password, userInfo.getAuthorities());
     }

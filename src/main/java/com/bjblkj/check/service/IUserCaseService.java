@@ -1,7 +1,7 @@
 package com.bjblkj.check.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.bjblkj.check.entities.vo.UserInfoVO;
+import com.bjblkj.check.entities.vo.OperatorInfoVO;
 import com.bjblkj.check.entities.UserCase;
 
 /**
@@ -19,7 +19,7 @@ public interface IUserCaseService extends IService<UserCase> {
      * @param token:
      * @return: UserInfoVO
      */
-    UserInfoVO getCurrentUserInfo(String token);
+    OperatorInfoVO getCurrentUserInfo(String token);
 
     boolean addUser(UserCase userCase);
 }

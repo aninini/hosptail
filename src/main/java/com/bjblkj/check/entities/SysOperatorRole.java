@@ -21,7 +21,7 @@ package com.bjblkj.check.entities;
     @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
     @ApiModel(description = "用户角色实体类")
-    public class SysUserRole extends BaseEntity<SysUserRole> {
+    public class SysOperatorRole extends BaseEntity<SysOperatorRole> {
 
     private static final long serialVersionUID = 1L;
 

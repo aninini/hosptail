@@ -49,7 +49,7 @@ public class CateringBusinessController {
     @Resource
     private IRoleMenuService roleMenuService;
     @Resource
-    private IUserRoleService userRoleService;
+    private IOperatorRoleService userRoleService;
     @Resource
     private IdCommon idCommon;
 
@@ -134,7 +134,6 @@ public class CateringBusinessController {
         if (business == null) {
             throw new RuntimeException("公司信息未填写");
         }
-        business.setBusinessId(idCommon.getLongId());
         if (!cateringBusinessService.save(business)) {
             throw new RuntimeException("公司注册失败");
         }
@@ -191,15 +190,14 @@ public class CateringBusinessController {
                 //TODO 这个id未完成
                 userCase.setTypeId(111L);
 
-//                userCase.setRoleId(sysRoleCase.getRoleId());
                 if (!userCaseService.save(userCase)) {
                     throw new RuntimeException("管理员添加失败");
                 }
 
-                SysUserRole sysUserRole = new SysUserRole();
-                sysUserRole.setRoleId(sysRoleCase.getRoleId());
-                sysUserRole.setUserId(userCase.getUserId());
-                if (!userRoleService.save(sysUserRole)) {
+                SysOperatorRole sysOperatorRole = new SysOperatorRole();
+                sysOperatorRole.setRoleId(sysRoleCase.getRoleId());
+                sysOperatorRole.setUserId(userCase.getUserId());
+                if (!userRoleService.save(sysOperatorRole)) {
                     throw new RuntimeException("管理员配置失败");
                 }
 

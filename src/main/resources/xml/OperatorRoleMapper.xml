@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bjblkj.check.mapper.UserRoleMapper">
+<mapper namespace="com.bjblkj.check.mapper.OperatorRoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.SysUserRole">
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.SysOperatorRole">
         <id column="id" property="id" />
         <result column="user_id" property="userId" />
         <result column="role_id" property="roleId" />
@@ -16,34 +16,11 @@
         id, user_id, role_id, creation_time, update_time
     </sql>
 
-    <select id="selectUserRoles" resultMap="BaseResultMap">
-        SELECT
-        *
-        FROM sys_user_role
-        WHERE
-        1 = 1
-        <if test="filter.id!=null and filter.id!=''">
-            AND id= #{filter.id}
-        </if>
-        <if test="filter.roleId!=null and filter.roleId!=''">
-            AND role_id= #{filter.roleId}
-        </if>
-        ORDER BY id DESC
-    </select>
-
-    <delete id="deleteByRoleId">
-        DELETE FROM sys_user_role
-        WHERE 1=1
-        <if test="roleId!=null">
-            AND role_id = #{roleId}
-        </if>
-    </delete>
-
-    <select id="selectRoleByUserId" resultType="com.bjblkj.check.entities.SysRoleCase">
+    <select id="selectRoleByOperatorId" resultType="com.bjblkj.check.entities.SysRoleCase">
         SELECT
         r.*
         FROM
-        sys_user_role ur
+        sys_operator_role ur
         LEFT JOIN sys_role_case r ON ur.role_id = r.role_id
         WHERE 1=1
         <if test="userId!=null">

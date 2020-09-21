@@ -1,5 +1,6 @@
 package com.bjblkj.check.config.security.dto;
 
+import com.bjblkj.check.entities.SysOperatorCase;
 import com.bjblkj.check.entities.SysRoleCase;
 import com.bjblkj.check.entities.UserCase;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class SecurityUser implements UserDetails {
     /**
      * 当前登录用户
      */
-    private transient UserCase currentUserInfo;
+    private transient SysOperatorCase currentUserInfo;
     /**
      * 角色
      */
@@ -37,13 +38,13 @@ public class SecurityUser implements UserDetails {
     public SecurityUser() {
     }
 
-    public SecurityUser(UserCase user) {
+    public SecurityUser(SysOperatorCase user) {
         if (user != null) {
             this.currentUserInfo = user;
         }
     }
 
-    public SecurityUser(UserCase user, List<SysRoleCase> roleList) {
+    public SecurityUser(SysOperatorCase user, List<SysRoleCase> roleList) {
         if (user != null) {
             this.currentUserInfo = user;
             this.roleList = roleList;
@@ -79,7 +80,7 @@ public class SecurityUser implements UserDetails {
 
     @Override
     public String getUsername() {
-        return currentUserInfo.getUserName();
+        return currentUserInfo.getOperatorName();
     }
 
     @Override
