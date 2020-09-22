@@ -6,6 +6,7 @@ import com.bjblkj.check.config.Constants;
 import com.bjblkj.check.config.security.login.AdminAuthenticationFailureHandler;
 import com.bjblkj.check.config.security.login.AdminAuthenticationSuccessHandler;
 import com.bjblkj.check.config.security.login.CusAuthenticationManager;
+import com.bjblkj.check.entities.SysOperatorCase;
 import com.bjblkj.check.entities.UserCase;
 import com.bjblkj.check.utils.MultiReadHttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +51,8 @@ public class AdminAuthenticationProcessingFilter extends AbstractAuthenticationP
         try {
             MultiReadHttpServletRequest wrappedRequest = new MultiReadHttpServletRequest(request);
             // 将前端传递的数据转换成jsonBean数据格式
-            UserCase user = JSONObject.parseObject(wrappedRequest.getBodyJsonStrByJson(wrappedRequest), UserCase.class);
-            authRequest = new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPwd(), null);
+            SysOperatorCase user = JSONObject.parseObject(wrappedRequest.getBodyJsonStrByJson(wrappedRequest), SysOperatorCase.class);
+            authRequest = new UsernamePasswordAuthenticationToken(user.getOperatorName(), user.getPwd(), null);
             authRequest.setDetails(authenticationDetailsSource.buildDetails(wrappedRequest));
         } catch (Exception e) {
             throw new AuthenticationServiceException(e.getMessage());

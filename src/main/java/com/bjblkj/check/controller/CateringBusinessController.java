@@ -43,13 +43,15 @@ public class CateringBusinessController {
     @Resource
     private IRoleCaseService roleCaseService;
     @Resource
-    private IUserCaseService userCaseService;
+    private ISysOperatorCaseService operatorCaseService;
     @Resource
     private IMenuCaseService menuCaseService;
     @Resource
     private IRoleMenuService roleMenuService;
     @Resource
     private IOperatorRoleService userRoleService;
+    @Resource
+    private ISysBusinessMenuService businessMenuService;
     @Resource
     private IdCommon idCommon;
 
@@ -131,35 +133,25 @@ public class CateringBusinessController {
     public Ret saveAll(@RequestBody BusinessDTO input) {
         //注册公司基本信息
         SysCateringBusiness business = input.getBusiness();
-        if (business == null) {
-            throw new RuntimeException("公司信息未填写");
-        }
-        if (!cateringBusinessService.save(business)) {
-            throw new RuntimeException("公司注册失败");
-        }
+        EmptyUtil.isEmpty(business,"公司信息未填写");
+        EmptyUtil.update(cateringBusinessService.save(business),"公司注册失败");
 
         //注册公司选择模块
         List<String> mods = input.getMods();
-        if (mods == null || mods.size() < 1) {
-            throw new RuntimeException("模块选择不能为0");
-        }
+        EmptyUtil.isEmpty(mods,"模块选择不能为0");
         for (String mode : mods) {
             SysBusinessMode sysBusinessMode = new SysBusinessMode();
             sysBusinessMode.setId(idCommon.getLongId());
             sysBusinessMode.setBusinessId(business.getBusinessId());
             sysBusinessMode.setModeCode(mode);
-            if (!businessModeService.save(sysBusinessMode)) {
-                throw new RuntimeException("模块添加失败");
-            }
+            EmptyUtil.update(businessModeService.save(sysBusinessMode),"模块添加失败");
         }
 
         //添加一个管理员企业管理员角色
         SysRoleCase sysRoleCase = new SysRoleCase();
         sysRoleCase.setRoleName("role_admin");
         sysRoleCase.setBusinessId(business.getBusinessId());
-        if (!roleCaseService.save(sysRoleCase)) {
-            throw new RuntimeException("添加失败");
-        }
+        EmptyUtil.update(roleCaseService.save(sysRoleCase),"添加失败");
 
         //给管理员分配资源
         List<SysMenuCase> sysMenuCases = menuCaseService.list(new QueryWrapper<SysMenuCase>().in("mode_code", mods));
@@ -168,38 +160,34 @@ public class CateringBusinessController {
             sysRoleMenu.setRoleId(sysRoleCase.getRoleId());
             sysRoleMenu.setMenuId(m.getId());
             sysRoleMenu.setBusinessId(business.getBusinessId());
-            if (!roleMenuService.save(sysRoleMenu)) {
-                throw new RuntimeException("权限配置失败");
-            }
+            EmptyUtil.update(roleMenuService.save(sysRoleMenu),"权限配置失败");
+
+            SysBusinessMenu businessMenu = new SysBusinessMenu();
+            businessMenu.setMenuId(m.getId());
+            businessMenu.setBusinessId(business.getBusinessId());
+            EmptyUtil.update(businessMenuService.save(businessMenu),"权限配置失败");
         }
 
         //注册联系人
         List<SysContactCase> sysContactCases = input.getSysContactCases();
-        if (sysContactCases == null || sysContactCases.size() < 1) {
-            throw new RuntimeException("请填写联系人");
-        }
+        EmptyUtil.isEmpty(sysContactCases,"请填写联系人");
         for (int i = 0; i < sysContactCases.size(); i++) {
             if (i == 0) {
                 sysContactCases.get(i).setAdministrator("1");
-                UserCase userCase = new UserCase();
+                SysOperatorCase userCase = new SysOperatorCase();
                 userCase.setPwd("7c4a8d09ca3762af61e59520943dc26494f8941b");
-                userCase.setUserName(sysContactCases.get(i).getContactName());
+                userCase.setOperatorName(sysContactCases.get(i).getContactName());
                 userCase.setBusinessId(business.getBusinessId());
                 userCase.setTelephone(sysContactCases.get(i).getPhoneNumber());
 
                 //TODO 这个id未完成
                 userCase.setTypeId(111L);
-
-                if (!userCaseService.save(userCase)) {
-                    throw new RuntimeException("管理员添加失败");
-                }
+                EmptyUtil.update(operatorCaseService.save(userCase),"管理员添加失败");
 
                 SysOperatorRole sysOperatorRole = new SysOperatorRole();
                 sysOperatorRole.setRoleId(sysRoleCase.getRoleId());
-                sysOperatorRole.setUserId(userCase.getUserId());
-                if (!userRoleService.save(sysOperatorRole)) {
-                    throw new RuntimeException("管理员配置失败");
-                }
+                sysOperatorRole.setUserId(userCase.getOperatorId());
+                EmptyUtil.update(userRoleService.save(sysOperatorRole),"管理员配置失败");
 
                 SysBusinessRecord sysBusinessRecord = new SysBusinessRecord();
                 sysBusinessRecord.setStartTime(input.getStartTime());
@@ -207,16 +195,12 @@ public class CateringBusinessController {
                 sysBusinessRecord.setBusinessId(business.getBusinessId());
                 sysBusinessRecord.setContractNumber(input.getContractNumber());
                 sysBusinessRecord.setSalesName(input.getSalesName());
-                sysBusinessRecord.setContactId(userCase.getUserId());
-                if (!businessRecordService.save(sysBusinessRecord)) {
-                    throw new RuntimeException("合同添加失败");
-                }
+                sysBusinessRecord.setContactId(userCase.getOperatorId());
+                EmptyUtil.update(businessRecordService.save(sysBusinessRecord),"合同添加失败");
 
             }
             sysContactCases.get(i).setBusinessId(business.getBusinessId());
-            if (!contactCaseService.save(sysContactCases.get(i))) {
-                throw new RuntimeException("联系人添加失败");
-            }
+            EmptyUtil.update(contactCaseService.save(sysContactCases.get(i)),"联系人添加失败");
         }
         return Ret.ok("注册完成");
     }

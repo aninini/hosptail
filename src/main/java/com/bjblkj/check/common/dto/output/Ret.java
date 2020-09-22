@@ -1,7 +1,9 @@
 package com.bjblkj.check.common.dto.output;
 
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.bjblkj.check.common.enumeration.ResultCode;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
@@ -30,6 +32,8 @@ public class Ret {
      * 响应中的数据
      */
     @ApiModelProperty(value = "响应数据", required = false)
+    @JSONField(name = "data")
+    @JsonProperty(value = "data")
     private Object result;
 
     /***

@@ -17,5 +17,5 @@ public class RoleMenuQueryPara extends BasePageQuery {
     @ApiModelProperty(value = "角色ID")
     private Long roleId;
     @ApiModelProperty(value = "菜单ids")
-    private String menuIds;
+    private Long menuIds;
 }

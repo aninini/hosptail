@@ -37,6 +37,7 @@ public class SysOperatorCase extends BaseEntity<SysOperatorCase> {
     private Long businessId;
 
     @ApiModelProperty(value = "操作员名称")
+    @JSONField(name = "username")
     private String operatorName;
 
     @ApiModelProperty(value = "真实姓名")

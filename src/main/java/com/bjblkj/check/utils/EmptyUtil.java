@@ -8,7 +8,9 @@ import java.util.List;
 public class EmptyUtil {
 
     public static void update(Boolean b, String fullMsg) {
-        if (!b) { throw new RuntimeException(fullMsg); }
+        if (!b) {
+            throw new RuntimeException(fullMsg);
+        }
     }
 
 
@@ -29,7 +31,7 @@ public class EmptyUtil {
             throw new RuntimeException(msg);
         }
         if (obj instanceof List) {
-            if (((List) obj).isEmpty()) {
+            if (((List) obj).isEmpty() || ((List) obj).size() < 1) {
                 throw new RuntimeException(msg);
             }
         }

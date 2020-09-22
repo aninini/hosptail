@@ -1,5 +1,7 @@
 package com.bjblkj.check.entities;
 
+import java.io.Serializable;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.bjblkj.check.common.entity.BaseEntity;
@@ -11,17 +13,17 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 企业模块关系表
+ * 
  * </p>
  *
  * @author generate by L
- * @since 2020-09-10
+ * @since 2020-09-21
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(description = "企业模块实体类")
-public class SysBusinessMode extends BaseEntity<SysBusinessMode> {
+@ApiModel(description = "企业资源实体类")
+public class SysBusinessMenu  extends BaseEntity<SysBusinessMenu> {
 
     private static final long serialVersionUID = 1L;
 
@@ -29,11 +31,11 @@ public class SysBusinessMode extends BaseEntity<SysBusinessMode> {
     @ApiModelProperty(value = "主键")
     private Long id;
 
-    @ApiModelProperty(value = "企业ID")
+    @ApiModelProperty(value = "所属企业ID")
     private Long businessId;
 
-    @ApiModelProperty(value = "模块编号")
-    private String modeCode;
+    @ApiModelProperty(value = "资源ID")
+    private Long menuId;
 
 
 }

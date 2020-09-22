@@ -4,10 +4,13 @@ package com.bjblkj.check.controller;
 import com.bjblkj.check.entities.vo.OperatorInfoVO;
 import com.bjblkj.check.common.dto.output.Ret;
 import com.bjblkj.check.entities.UserCase;
+import com.bjblkj.check.service.ISysOperatorCaseService;
 import com.bjblkj.check.service.IUserCaseService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * <p>
