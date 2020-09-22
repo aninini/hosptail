@@ -59,6 +59,8 @@ public class MyAuthenticationFilter extends OncePerRequestFilter {
             // 记录请求的消息体
             logRequestBody(wrappedRequest);
 
+
+
             // 前后端分离情况下，前端登录后将token储存在cookie中，每次访问接口时通过token去拿用户权限
             String jwtToken = wrappedRequest.getHeader(Constants.REQUEST_HEADER);
             log.debug("后台检查令牌:{}", jwtToken);

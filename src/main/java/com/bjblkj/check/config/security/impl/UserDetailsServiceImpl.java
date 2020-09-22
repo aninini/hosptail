@@ -9,6 +9,7 @@ import com.bjblkj.check.service.IRoleCaseService;
 import com.bjblkj.check.service.ISysOperatorCaseService;
 import com.bjblkj.check.entities.SysOperatorRole;
 import com.bjblkj.check.service.IOperatorRoleService;
+import com.bjblkj.check.service.IUserBalanceService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +22,6 @@ import java.util.List;
 
 /**
  * <p> 自定义userDetailsService - 认证用户详情 </p>
- *
  */
 @Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {

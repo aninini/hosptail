@@ -8,6 +8,7 @@ import com.bjblkj.check.entities.SysOperatorRole;
 import com.bjblkj.check.entities.SysRoleCase;
 import com.bjblkj.check.entities.SysRoleMenu;
 import com.bjblkj.check.entities.input.RoleCaseDTO;
+import com.bjblkj.check.entities.input.RoleMenuDTO;
 import com.bjblkj.check.entities.input.RoleMenuQueryPara;
 import com.bjblkj.check.entities.input.RoleQueryPara;
 import com.bjblkj.check.service.IRoleMenuService;
@@ -51,36 +52,22 @@ public class RoleMenuController {
         return Ret.ok("查询成功", roleMenuService.page(page, wrapper));
     }
 
-//    @Transactional
-//    @PostMapping(value = "/save")
-//    @ApiOperation(value = "注册企业角色信息", httpMethod = "POST", response = Ret.class, notes = "注册企业角色信息")
-//    public Ret saveAll(@RequestBody RoleCaseDTO input) {
-//        EmptyUtil.isEmpty(input.getRoleName(), "角色名称不能为空");
-//        SysRoleCase roleCase = new SysRoleCase();
-//        BeanUtils.copyProperties(input, roleCase);
-//        roleCase.setBusinessId(UserUtil.getUserBusinessId());
-//        EmptyUtil.update(roleCaseService.save(roleCase), "添加失败");
-//        return Ret.ok("添加成功");
-//    }
-//
-//    @Transactional
-//    @ApiOperation("根据id删除角色信息")
-//    @PostMapping(value = "/delete")
-//    public Ret deleteRoleByRoleId(@RequestParam(name = "id", required = true)String id){
-//        boolean remove = userRoleService.remove(new QueryWrapper<SysOperatorRole>().eq("role_id", id));
-//        boolean res_delete= roleCaseService.removeById(id);
-//        EmptyUtil.update(remove & res_delete ,"删除失败");
-//        return Ret.ok("删除成功");
-//    }
-//
-//    @Transactional
-//    @ApiOperation("角色修改")
-//    @PostMapping(value = "/update")
-//    public Ret updateRoleCase(@RequestBody SysRoleCase roleCase){
-//        roleCase.setBusinessId(null);
-//        boolean b = roleCaseService.updateById(roleCase);
-//        EmptyUtil.update(b,"更新失败");
-//        return Ret.ok("更新成功");
-//
-
+    @Transactional
+    @PostMapping(value = "/save")
+    @ApiOperation(value = "注册企业角色信息", httpMethod = "POST", response = Ret.class, notes = "注册企业角色信息")
+    public Ret saveAll(@RequestBody RoleMenuDTO input) {
+        roleMenuService.remove(new QueryWrapper<SysRoleMenu>().eq("role_id",input.getRoleId()));
+        EmptyUtil.isEmpty(input.getRoleId(), "角色不能为空");
+        Long businessId = UserUtil.getUserBusinessId();
+        if (input.getMenuIds() != null || input.getMenuIds().size() > 0){
+            for (Long m:input.getMenuIds()) {
+                SysRoleMenu sysRoleMenu = new SysRoleMenu();
+                sysRoleMenu.setMenuId(m);
+                sysRoleMenu.setRoleId(input.getRoleId());
+                sysRoleMenu.setBusinessId(businessId);
+                EmptyUtil.update(roleMenuService.save(sysRoleMenu), "添加失败");
+            }
+        }
+        return Ret.ok("添加成功");
+    }
 }

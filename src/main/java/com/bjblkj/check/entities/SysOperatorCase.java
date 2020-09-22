@@ -33,7 +33,7 @@ public class SysOperatorCase extends BaseEntity<SysOperatorCase> {
     @ApiModelProperty(value = "主键")
     private Long operatorId;
 
-    @ApiModelProperty(value = "所属餐厅ID")
+    @ApiModelProperty(value = "所属企业ID")
     private Long businessId;
 
     @ApiModelProperty(value = "操作员名称")
