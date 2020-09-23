@@ -94,7 +94,7 @@ public class Generator {
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setSuperControllerClass("cn.ezios.practice.june.demo.controller.BaseController");
 //        strategy.setInclude("push_case","push_meal","push_meal_cook");
-        strategy.setInclude("sys_business_menu");
+        strategy.setInclude("sys_canbie_case");
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

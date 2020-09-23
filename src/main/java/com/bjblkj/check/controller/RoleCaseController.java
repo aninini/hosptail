@@ -12,6 +12,7 @@ import com.bjblkj.check.utils.UserUtil;
 import com.bjblkj.check.common.dto.output.Ret;
 import com.bjblkj.check.service.IRoleCaseService;
 import com.bjblkj.check.utils.EmptyUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,7 @@ import javax.annotation.Resource;
  * @author generate by L
  * @since 2020-09-10
  */
+@Api(tags = "企业角色管理")
 @RestController
 @RequestMapping("/role")
 public class RoleCaseController {
@@ -61,17 +63,17 @@ public class RoleCaseController {
         SysRoleCase roleCase = new SysRoleCase();
         BeanUtils.copyProperties(input, roleCase);
         roleCase.setBusinessId(UserUtil.getUserBusinessId());
-        EmptyUtil.update(roleCaseService.save(roleCase), "添加失败");
+        EmptyUtil.bool(roleCaseService.save(roleCase), "添加失败");
         return Ret.ok("添加成功");
     }
 
     @Transactional
     @ApiOperation("根据id删除角色信息")
     @PostMapping(value = "/delete")
-    public Ret deleteRoleByRoleId(@RequestParam(name = "id", required = true)String id){
+    public Ret deleteRoleByRoleId(@RequestParam(name = "id", required = true)Long id){
         boolean remove = userRoleService.remove(new QueryWrapper<SysOperatorRole>().eq("role_id", id));
         boolean res_delete= roleCaseService.removeById(id);
-        EmptyUtil.update(remove & res_delete ,"删除失败");
+        EmptyUtil.bool(remove & res_delete ,"删除失败");
         return Ret.ok("删除成功");
     }
 
@@ -81,7 +83,7 @@ public class RoleCaseController {
     public Ret updateRoleCase(@RequestBody SysRoleCase roleCase){
         roleCase.setBusinessId(null);
         boolean b = roleCaseService.updateById(roleCase);
-        EmptyUtil.update(b,"更新失败");
+        EmptyUtil.bool(b,"更新失败");
         return Ret.ok("更新成功");
     }
 }

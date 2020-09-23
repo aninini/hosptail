@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjblkj.check.mapper.BascNutritionalComponentsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.BascNutritionalComponents">
+        <id column="nut_Id" property="nutId" />
+        <result column="nut_Name" property="nutName" />
+        <result column="operator" property="operator" />
+        <result column="custom" property="custom" />
+        <result column="type" property="type" />
+        <result column="business_id" property="businessId" />
+        <result column="creation_time" property="creationTime" />
+        <result column="update_Time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        nut_Id, nut_Name, operator, custom, type, business_id, creation_time, update_Time
+    </sql>
+
+</mapper>

@@ -7,7 +7,7 @@ import java.util.List;
 
 public class EmptyUtil {
 
-    public static void update(Boolean b, String fullMsg) {
+    public static void bool(Boolean b, String fullMsg) {
         if (!b) {
             throw new RuntimeException(fullMsg);
         }

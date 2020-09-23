@@ -6,6 +6,7 @@ import com.bjblkj.check.common.dto.output.Ret;
 import com.bjblkj.check.entities.UserCase;
 import com.bjblkj.check.service.ISysOperatorCaseService;
 import com.bjblkj.check.service.IUserCaseService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import javax.annotation.Resource;
  * @author generate by L
  * @since 2020-09-10
  */
+@Api(tags = "用户管理")
 @RestController
 @RequestMapping("/user_case")
 public class UserCaseController {
@@ -27,6 +29,7 @@ public class UserCaseController {
     @Autowired
     IUserCaseService userService;
 
+    //操作员登录用
     @PostMapping(value = "/getCurrentUserInfo", produces = "application/json;charset=utf-8")
     @ApiOperation(value = "获取当前登录用户信息", httpMethod = "POST", response = Ret.class, notes = "获取当前登录用户信息")
     public Ret getCurrentUserInfo(@RequestHeader(name = "X-Token") String token) {

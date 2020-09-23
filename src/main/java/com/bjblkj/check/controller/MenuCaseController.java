@@ -16,5 +16,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/menu-case")
 public class MenuCaseController {
-
+    //预留
 }

@@ -38,7 +38,6 @@ public interface MenuCaseMapper extends BaseMapper<SysMenuCase> {
      * 通过菜单编码获取信息
      *
      * @param resources:
-     * @return: com.zhengqing.modules.system.entity.Menu
      */
     SysMenuCase findByResources(@Param("resources") String resources);
 
@@ -46,7 +45,6 @@ public interface MenuCaseMapper extends BaseMapper<SysMenuCase> {
      * 根据角色查询用户权限
      *
      * @param roleId:
-     * @return: java.util.List<com.zhengqing.modules.system.entity.Menu>
      */
     List<SysMenuCase> selectMenuByRoleId(@Param("roleId") Long roleId);
 }

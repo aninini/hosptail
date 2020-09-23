@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjblkj.check.mapper.BascVarietyCatalogueMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.BascVarietyCatalogue">
+        <id column="catalogue_Id" property="catalogueId" />
+        <result column="catalogue_Name" property="catalogueName" />
+        <result column="parent_Id" property="parentId" />
+        <result column="creation_time" property="creationTime" />
+        <result column="update_Time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        catalogue_Id, catalogue_Name, parent_Id, creation_time, update_Time
+    </sql>
+
+    <select id="getCateList" resultType="com.bjblkj.check.entities.BascVarietyCatalogue">
+  	select *,
+  	(SELECT g.catalogue_name from basc_variety_catalogue g where g.catalogue_id=v.parent_id ) as parent_name
+  	 from basc_variety_catalogue v
+  	 where v.business_id = #{businessId,jdbcType=CHAR}
+  </select>
+</mapper>

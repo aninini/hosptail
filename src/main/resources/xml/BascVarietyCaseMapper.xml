@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjblkj.check.mapper.BascVarietyCaseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.BascVarietyCase">
+        <id column="variety_Id" property="varietyId" />
+        <result column="variety_Name" property="varietyName" />
+        <result column="variety_Type" property="varietyType" />
+        <result column="picture" property="picture" />
+        <result column="general_Name" property="generalName" />
+        <result column="english_Name" property="englishName" />
+        <result column="brand" property="brand" />
+        <result column="origin_Place" property="originPlace" />
+        <result column="specifications" property="specifications" />
+        <result column="storage_Conditions" property="storageConditions" />
+        <result column="validity" property="validity" />
+        <result column="implementation" property="implementation" />
+        <result column="approval_Number" property="approvalNumber" />
+        <result column="private_Labeler" property="privateLabeler" />
+        <result column="private_Labeler_Address" property="privateLabelerAddress" />
+        <result column="private_Labeler_Phone" property="privateLabelerPhone" />
+        <result column="manufacturer" property="manufacturer" />
+        <result column="manufacturer_Address" property="manufacturerAddress" />
+        <result column="manufacturer_Phone" property="manufacturerPhone" />
+        <result column="subcontractor" property="subcontractor" />
+        <result column="subcontractor_Address" property="subcontractorAddress" />
+        <result column="subcontractor_Phone" property="subcontractorPhone" />
+        <result column="china_Manufacturer" property="chinaManufacturer" />
+        <result column="upper_Limit" property="upperLimit" />
+        <result column="short_Early" property="shortEarly" />
+        <result column="business_id" property="businessId" />
+        <result column="creation_time" property="creationTime" />
+        <result column="update_Time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        variety_Id, variety_Name, variety_Type, picture, general_Name, english_Name, brand, origin_Place, specifications, storage_Conditions, validity, implementation, approval_Number, private_Labeler, private_Labeler_Address, private_Labeler_Phone, manufacturer, manufacturer_Address, manufacturer_Phone, subcontractor, subcontractor_Address, subcontractor_Phone, china_Manufacturer, upper_Limit, short_Early, business_id, creation_time, update_Time
+    </sql>
+
+</mapper>

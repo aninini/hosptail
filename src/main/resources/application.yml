@@ -4,7 +4,7 @@ server:
   servlet:
     #    context-path: /api
     application-display-name: demo
-
+    context-path: /api
 spring:
   application:
     name: demo

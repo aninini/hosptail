@@ -4,19 +4,14 @@ package com.bjblkj.check.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bjblkj.check.common.dto.output.Ret;
-import com.bjblkj.check.entities.SysOperatorRole;
-import com.bjblkj.check.entities.SysRoleCase;
 import com.bjblkj.check.entities.SysRoleMenu;
-import com.bjblkj.check.entities.input.RoleCaseDTO;
 import com.bjblkj.check.entities.input.RoleMenuDTO;
 import com.bjblkj.check.entities.input.RoleMenuQueryPara;
-import com.bjblkj.check.entities.input.RoleQueryPara;
 import com.bjblkj.check.service.IRoleMenuService;
 import com.bjblkj.check.utils.EmptyUtil;
 import com.bjblkj.check.utils.UserUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +25,7 @@ import javax.annotation.Resource;
  * @author generate by L
  * @since 2020-09-10
  */
+@Api(tags = "企业角色菜单管理")
 @RestController
 @RequestMapping("/role_menu")
 public class RoleMenuController {
@@ -65,7 +61,7 @@ public class RoleMenuController {
                 sysRoleMenu.setMenuId(m);
                 sysRoleMenu.setRoleId(input.getRoleId());
                 sysRoleMenu.setBusinessId(businessId);
-                EmptyUtil.update(roleMenuService.save(sysRoleMenu), "添加失败");
+                EmptyUtil.bool(roleMenuService.save(sysRoleMenu), "添加失败");
             }
         }
         return Ret.ok("添加成功");

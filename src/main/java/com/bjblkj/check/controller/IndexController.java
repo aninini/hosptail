@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
  * <p> 首页 </p>
  *
  */
+@Api(tags = "首页-接口")
 @RestController
-@Api(description = "首页-接口")
 public class IndexController extends BaseController {
 
     @PostMapping(value = "/login", produces = "application/json;charset=utf-8")
