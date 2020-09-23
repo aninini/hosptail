@@ -31,12 +31,16 @@ public class BascDiningCase extends BaseEntity<BascDiningCase> {
     @TableId(type = IdType.NONE)
     @ApiModelProperty(value = "餐厅ID")
     private Long diningId;
+
     @ApiModelProperty(value = "餐厅名称")
     private String diningName;
+
     @ApiModelProperty(value = "餐厅分类")
-    private String type;
+    private Long type;
+
     @ApiModelProperty(value = "餐厅地址")
     private String address;
+
     @ApiModelProperty(value = "餐饮企业ID")
     private Long businessId;
 

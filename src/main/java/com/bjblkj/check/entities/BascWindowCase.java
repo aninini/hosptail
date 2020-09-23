@@ -31,7 +31,7 @@ public class BascWindowCase extends BaseEntity<BascWindowCase> {
 
     @TableId(type = IdType.NONE)
     @ApiModelProperty(value = "窗口ID")
-    private String windowId;
+    private Long windowId;
 
     @ApiModelProperty(value = "窗口编号")
     private String windowName;

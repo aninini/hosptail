@@ -27,7 +27,7 @@ public class BascWindowCaseServiceImpl extends ServiceImpl<BascWindowCaseMapper,
 
     @Override
     public boolean save(BascWindowCase entity){
-        entity.setId(idCommon.getLongId());
+        entity.setWindowId(idCommon.getLongId());
         return SqlHelper.retBool(getBaseMapper().insert(entity));
     }
 }
