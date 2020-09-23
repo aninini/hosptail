@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 操作员表 
+ * 操作员表
  * </p>
  *
  * @author generate by L

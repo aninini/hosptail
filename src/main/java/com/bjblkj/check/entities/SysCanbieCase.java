@@ -2,11 +2,17 @@ package com.bjblkj.check.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalTime;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.bjblkj.check.common.entity.BaseEntity;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -18,60 +24,36 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class SysCanbieCase implements Serializable {
+@Accessors(chain = true)
+@ApiModel(description = "餐别设置基础表")
+public class SysCanbieCase extends BaseEntity<SysCanbieCase> {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 餐别ID
-     */
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(type = IdType.NONE)
+    @ApiModelProperty(value = "餐别ID")
     private Long id;
 
-    /**
-     * 餐别编号
-     */
+    @ApiModelProperty(value = "餐别编号")
     private String canbieCode;
 
-    /**
-     * 餐别名称
-     */
+    @ApiModelProperty(value = "餐别名称")
     private String canbieName;
 
-    /**
-     * 开始时间
-     */
+    @ApiModelProperty(value = "开始时间")
     private LocalTime startTime;
 
-    /**
-     * 结束时间
-     */
+    @ApiModelProperty(value = "结束时间")
     private LocalTime endTime;
 
-    /**
-     * 是否有效
-     */
+    @ApiModelProperty(value = "是否有效")
     private Boolean valid;
 
-    /**
-     * 排序Id
-     */
+    @ApiModelProperty(value = "排序Id")
     private Integer sort;
 
-    /**
-     * 餐饮企业ID
-     */
+    @ApiModelProperty(value = "餐饮企业ID")
     private Long businessId;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime creationTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
 
 
 }

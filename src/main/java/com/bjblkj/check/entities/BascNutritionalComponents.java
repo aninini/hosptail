@@ -2,8 +2,11 @@ package com.bjblkj.check.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 
 import com.bjblkj.check.common.entity.BaseEntity;
@@ -25,7 +28,7 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @ApiModel(description = "企业部门实体类")
-public class BascNutritionalComponents  extends BaseEntity<BascNutritionalComponents> {
+public class BascNutritionalComponents extends BaseEntity<BascNutritionalComponents> {
 
     private static final long serialVersionUID = 1L;
 

@@ -2,8 +2,11 @@ package com.bjblkj.check.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
+
 import com.baomidou.mybatisplus.annotation.TableField;
+
 import java.io.Serializable;
 
 import com.bjblkj.check.common.entity.BaseEntity;
