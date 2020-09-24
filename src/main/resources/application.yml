@@ -109,3 +109,4 @@ lizhishen:
       - /**/*.css
       - /**/*.png
       - /**/*.ico
+      - /sys_dictionary/select_children_dict_by_num

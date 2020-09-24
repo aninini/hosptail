@@ -130,6 +130,14 @@ public class CateringBusinessController {
                         businessMode.setModeCode(m);
                         boolean b = businessModeService.save(businessMode);
                         EmptyUtil.bool(b, "更新模块信息失败");
+
+                        List<SysMenuCase> sysMenuCases = menuCaseService.list(new QueryWrapper<SysMenuCase>().eq("mode_code", m));
+                        for (SysMenuCase menu : sysMenuCases) {
+                            SysBusinessMenu businessMenu = new SysBusinessMenu();
+                            businessMenu.setMenuId(menu.getId());
+                            businessMenu.setBusinessId(business.getBusinessId());
+                            EmptyUtil.bool(businessMenuService.save(businessMenu), "配置失败");
+                        }
                     }
                 }
             }

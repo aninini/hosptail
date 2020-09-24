@@ -11,10 +11,10 @@ import java.util.List;
 @ApiModel(description = "系统管理-角色菜单参数")
 public class RoleMenuDTO {
 
-    @ApiModelProperty(value = "企业信息")
+    @ApiModelProperty(value = "角色信息")
     private Long  roleId;
 
-    @ApiModelProperty(value = "企业联系人集合")
+    @ApiModelProperty(value = "资源集合")
     private List<Long> menuIds;
 
 }

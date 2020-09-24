@@ -3,6 +3,7 @@ package com.bjblkj.check.entities;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.bjblkj.check.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
@@ -37,5 +38,11 @@ public class SysBusinessMenu extends BaseEntity<SysBusinessMenu> {
     @ApiModelProperty(value = "资源ID")
     private Long menuId;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "名称")
+    private String menuName;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "是否选中")
+    private String check;
 }

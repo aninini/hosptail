@@ -37,6 +37,4 @@ public class SysRoleMenu extends BaseEntity<SysRoleMenu> {
 
     @ApiModelProperty(value = "企业ID")
     private Long businessId;
-
-
 }

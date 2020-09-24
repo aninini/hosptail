@@ -150,7 +150,7 @@ public class BascVarietyCaseController {
         if (count > 0) {
             throw new RuntimeException("数据正在被占用");
         }
-        EmptyUtil.bool(varietyCaseService.removeById(catalogueId), "修改失败");
+        EmptyUtil.bool(varietyCatalogueService.removeById(catalogueId), "删除失败");
         return Ret.ok("操作成功");
     }
 
@@ -169,6 +169,20 @@ public class BascVarietyCaseController {
         return Ret.ok("操作成功");
     }
 
+    /**
+     * 删除商品
+     *
+     * @param
+     * @return
+     */
+    @Transactional
+    @GetMapping("/deleteVari")
+    @ApiOperation(value = "新增商品", httpMethod = "POST", response = Ret.class, notes = "新增商品")
+    public Ret deleteVari(@RequestParam("id") Long id) {
+        //TODO 判断是否删除
+        EmptyUtil.bool(varietyCaseService.removeById(id), "添加失败");
+        return Ret.ok("操作成功");
+    }
     /**
      * 商品列表
      *
@@ -223,7 +237,7 @@ public class BascVarietyCaseController {
      * 获取商品信息
      */
     @Transactional
-    @GetMapping("/vari/{varietyId}")
+    @GetMapping("/selectVari/{varietyId}")
     @ApiOperation(value = "获取商品信息", httpMethod = "GET", response = Ret.class, notes = "获取商品信息")
     public Ret getVarietyById(@PathVariable(name="varietyId",required = true) String varietyId) {
         BascVarietyCase bascVarietyCase = varietyCaseService.getById(varietyId);
@@ -239,7 +253,7 @@ public class BascVarietyCaseController {
      * 修改商品
      */
     @Transactional
-    @PostMapping("/vari")
+    @PostMapping("/updateVari")
     @ApiOperation(value = "修改商品", httpMethod = "POST", response = Ret.class, notes = "修改商品")
     public Ret updateVariety(@RequestBody BascVarietyCase input){
         input.setBusinessId(null);
