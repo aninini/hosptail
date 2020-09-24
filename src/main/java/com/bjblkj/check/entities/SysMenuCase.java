@@ -59,5 +59,6 @@ public class SysMenuCase extends BaseEntity<SysMenuCase> {
     @ApiModelProperty(value = "模块编号")
     private String modeCode;
 
-
+    @ApiModelProperty(value = "增删改查编号")
+    private String curd;
 }

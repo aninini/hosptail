@@ -3,6 +3,7 @@ package com.bjblkj.check.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.enums.SqlLike;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bjblkj.check.common.SnowId.IdCommon;
 import com.bjblkj.check.entities.*;
@@ -89,9 +90,9 @@ public class CateringBusinessController {
 
         SysBusinessRecord record = businessRecordService.getOne(new QueryWrapper<SysBusinessRecord>().eq("business_id", id));
         resultJson.put("contractNumber", record.getContractNumber());
-        resultJson.put("endTime",record.getEndTime());
-        resultJson.put("startTime",record.getStartTime());
-        resultJson.put("salesName",record.getSalesName());
+        resultJson.put("endTime", record.getEndTime());
+        resultJson.put("startTime", record.getStartTime());
+        resultJson.put("salesName", record.getSalesName());
 
         List<SysBusinessMode> modes = businessModeService.list(new QueryWrapper<SysBusinessMode>().eq("business_id", id));
         resultJson.put("mods", modes.stream().map(SysBusinessMode::getModeCode).collect(Collectors.toList()));
@@ -109,7 +110,12 @@ public class CateringBusinessController {
         SysCateringBusiness business = input.getBusiness();
         if (input.getSysContactCases() != null || input.getSysContactCases().size() > 0) {
             for (SysContactCase c : input.getSysContactCases()) {
-                boolean b = contactCaseService.updateById(c);
+                boolean b;
+                if (c.getContactId() == null) {
+                    b = contactCaseService.save(c);
+                } else {
+                    b = contactCaseService.updateById(c);
+                }
                 EmptyUtil.bool(b, "更新联系人信息失败");
             }
         }
@@ -117,8 +123,8 @@ public class CateringBusinessController {
             List<SysBusinessMode> modes = businessModeService.list(new QueryWrapper<SysBusinessMode>().eq("business_id", business.getBusinessId()));
             if (modes != null || modes.size() > 0) {
                 List<String> list = modes.stream().map(SysBusinessMode::getModeCode).collect(Collectors.toList());
-                for (String m: input.getMods()) {
-                    if (!list.contains(m)){
+                for (String m : input.getMods()) {
+                    if (!list.contains(m)) {
                         SysBusinessMode businessMode = new SysBusinessMode();
                         businessMode.setBusinessId(business.getBusinessId());
                         businessMode.setModeCode(m);
@@ -138,25 +144,25 @@ public class CateringBusinessController {
     public Ret saveAll(@RequestBody BusinessDTO input) {
         //注册公司基本信息
         SysCateringBusiness business = input.getBusiness();
-        EmptyUtil.isEmpty(business,"公司信息未填写");
-        EmptyUtil.bool(cateringBusinessService.save(business),"公司注册失败");
+        EmptyUtil.isEmpty(business, "公司信息未填写");
+        EmptyUtil.bool(cateringBusinessService.save(business), "公司注册失败");
 
         //注册公司选择模块
         List<String> mods = input.getMods();
-        EmptyUtil.isEmpty(mods,"模块选择不能为0");
+        EmptyUtil.isEmpty(mods, "模块选择不能为0");
         for (String mode : mods) {
             SysBusinessMode sysBusinessMode = new SysBusinessMode();
             sysBusinessMode.setId(idCommon.getLongId());
             sysBusinessMode.setBusinessId(business.getBusinessId());
             sysBusinessMode.setModeCode(mode);
-            EmptyUtil.bool(businessModeService.save(sysBusinessMode),"模块添加失败");
+            EmptyUtil.bool(businessModeService.save(sysBusinessMode), "模块添加失败");
         }
 
         //添加一个管理员企业管理员角色
         SysRoleCase sysRoleCase = new SysRoleCase();
         sysRoleCase.setRoleName("role_admin");
         sysRoleCase.setBusinessId(business.getBusinessId());
-        EmptyUtil.bool(roleCaseService.save(sysRoleCase),"添加失败");
+        EmptyUtil.bool(roleCaseService.save(sysRoleCase), "添加失败");
 
         //给管理员分配资源
         List<SysMenuCase> sysMenuCases = menuCaseService.list(new QueryWrapper<SysMenuCase>().in("mode_code", mods));
@@ -165,17 +171,17 @@ public class CateringBusinessController {
             sysRoleMenu.setRoleId(sysRoleCase.getRoleId());
             sysRoleMenu.setMenuId(m.getId());
             sysRoleMenu.setBusinessId(business.getBusinessId());
-            EmptyUtil.bool(roleMenuService.save(sysRoleMenu),"权限配置失败");
+            EmptyUtil.bool(roleMenuService.save(sysRoleMenu), "权限配置失败");
 
             SysBusinessMenu businessMenu = new SysBusinessMenu();
             businessMenu.setMenuId(m.getId());
             businessMenu.setBusinessId(business.getBusinessId());
-            EmptyUtil.bool(businessMenuService.save(businessMenu),"权限配置失败");
+            EmptyUtil.bool(businessMenuService.save(businessMenu), "权限配置失败");
         }
 
         //注册联系人
         List<SysContactCase> sysContactCases = input.getSysContactCases();
-        EmptyUtil.isEmpty(sysContactCases,"请填写联系人");
+        EmptyUtil.isEmpty(sysContactCases, "请填写联系人");
         for (int i = 0; i < sysContactCases.size(); i++) {
             if (i == 0) {
                 sysContactCases.get(i).setAdministrator("1");
@@ -188,12 +194,12 @@ public class CateringBusinessController {
 
                 //TODO 这个id未完成
                 userCase.setTypeId(111L);
-                EmptyUtil.bool(operatorCaseService.save(userCase),"管理员添加失败");
+                EmptyUtil.bool(operatorCaseService.save(userCase), "管理员添加失败");
 
                 SysOperatorRole sysOperatorRole = new SysOperatorRole();
                 sysOperatorRole.setRoleId(sysRoleCase.getRoleId());
                 sysOperatorRole.setUserId(userCase.getOperatorId());
-                EmptyUtil.bool(userRoleService.save(sysOperatorRole),"管理员配置失败");
+                EmptyUtil.bool(userRoleService.save(sysOperatorRole), "管理员配置失败");
 
                 SysBusinessRecord sysBusinessRecord = new SysBusinessRecord();
                 sysBusinessRecord.setStartTime(input.getStartTime());
@@ -202,11 +208,11 @@ public class CateringBusinessController {
                 sysBusinessRecord.setContractNumber(input.getContractNumber());
                 sysBusinessRecord.setSalesName(input.getSalesName());
                 sysBusinessRecord.setContactId(userCase.getOperatorId());
-                EmptyUtil.bool(businessRecordService.save(sysBusinessRecord),"合同添加失败");
+                EmptyUtil.bool(businessRecordService.save(sysBusinessRecord), "合同添加失败");
 
             }
             sysContactCases.get(i).setBusinessId(business.getBusinessId());
-            EmptyUtil.bool(contactCaseService.save(sysContactCases.get(i)),"联系人添加失败");
+            EmptyUtil.bool(contactCaseService.save(sysContactCases.get(i)), "联系人添加失败");
         }
         return Ret.ok("注册完成");
     }

@@ -94,7 +94,7 @@ public class Generator {
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setSuperControllerClass("cn.ezios.practice.june.demo.controller.BaseController");
 //        strategy.setInclude("push_case","push_meal","push_meal_cook");
-        strategy.setInclude("basc_dining_case","basc_window_case");
+        strategy.setInclude("basc_cook_book","basc_cook_classify","basc_cook_making","basc_cook_nutritional","basc_cook_variety");
 //        strategy.setSuperEntityColumns("id");
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

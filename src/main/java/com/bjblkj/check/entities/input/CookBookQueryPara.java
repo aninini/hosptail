@@ -6,11 +6,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "系统管理-菜单表 查询参数")
-public class DeptQueryPara extends BasePageQuery {
+@ApiModel(description = "系统管理-菜品表 查询参数")
+public class CookBookQueryPara extends BasePageQuery {
 
+    @ApiModelProperty(value = "企业ID")
+    private Long cookId;
     @ApiModelProperty(value = "企业名称")
-    private Long departmentId;
+    private Long cookClassifyId;
     @ApiModelProperty(value = "企业名称")
-    private String departmentName;
+    private String cookName;
+
 }

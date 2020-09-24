@@ -37,9 +37,7 @@ public class BascDepartmentCaseController {
     public Ret pageSearch(@RequestBody DeptQueryPara deptQueryPara) {
         Page<BascDepartmentCase> page = new Page<>(deptQueryPara.getPage(), deptQueryPara.getLimit());
         QueryWrapper<BascDepartmentCase> wrapper = new QueryWrapper<>();
-        if (deptQueryPara.getBusinessId() != null) {
-            wrapper.eq("business_id", deptQueryPara.getBusinessId());
-        }
+        wrapper.eq("business_id", UserUtil.getUserBusinessId());
         if (StringUtils.isNotBlank(deptQueryPara.getDepartmentName())) {
             wrapper.like("department_name", deptQueryPara.getDepartmentName());
         }
@@ -54,9 +52,9 @@ public class BascDepartmentCaseController {
     public Ret delete(@RequestParam(name = "Id", required = true) String Id) {
         BascDepartmentCase departmentCase = departmentCaseService.getById(Id);
         Long businessId = UserUtil.getUserBusinessId();
-        if (departmentCase.getBusinessId() == businessId){
-            EmptyUtil.bool(departmentCaseService.removeById(departmentCase),"删除失败");
-        }else {
+        if (departmentCase.getBusinessId() == businessId) {
+            EmptyUtil.bool(departmentCaseService.removeById(departmentCase), "删除失败");
+        } else {
             throw new RuntimeException("删除失败");
         }
         return Ret.ok();
@@ -65,8 +63,9 @@ public class BascDepartmentCaseController {
     @ApiOperation("添加")
     @PostMapping(value = "/add")
     public Ret add(@RequestBody BascDepartmentCase input) {
+        input.setBusinessId(UserUtil.getUserBusinessId());
         boolean res_bool = departmentCaseService.save(input);
-        EmptyUtil.bool(res_bool,"添加失败");
+        EmptyUtil.bool(res_bool, "添加失败");
         return Ret.ok("操作成功");
     }
 
@@ -75,7 +74,7 @@ public class BascDepartmentCaseController {
     public Ret update(@RequestBody BascDepartmentCase input) {
         input.setBusinessId(null);
         boolean res_bool = departmentCaseService.updateById(input);
-        EmptyUtil.bool(res_bool,"更新失败");
+        EmptyUtil.bool(res_bool, "更新失败");
         return Ret.ok("操作成功");
     }
 

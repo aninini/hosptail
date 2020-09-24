@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjblkj.check.mapper.BascCookClassifyMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.bjblkj.check.entities.BascCookClassify">
+        <id column="cook_Classify_Id" property="cookClassifyId" />
+        <result column="cook_Classify" property="cookClassify" />
+        <result column="business_id" property="businessId" />
+        <result column="creation_time" property="creationTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        cook_Classify_Id, cook_Classify, business_id, creation_time, update_time
+    </sql>
+
+</mapper>

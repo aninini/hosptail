@@ -20,4 +20,9 @@ public class IndexController extends BaseController {
         return Ret.ok("登录系统成功", null);
     }
 
+    @GetMapping(value = "/index")
+    @ApiOperation(value = "首页", httpMethod = "GET", response = Ret.class)
+    public Ret home(){
+        return Ret.ok();
+    }
 }
