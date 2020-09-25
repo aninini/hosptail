@@ -1,13 +1,19 @@
 package com.bjblkj.check.entities;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.bjblkj.check.common.entity.BaseEntity;
+import com.bjblkj.check.entities.vo.MenuVO;
+import com.bjblkj.check.entities.vo.Meta;
+import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * <p>
@@ -61,4 +67,10 @@ public class SysMenuCase extends BaseEntity<SysMenuCase> {
 
     @ApiModelProperty(value = "增删改查编号")
     private String curd;
+
+    @TableField(exist = false)
+    private Meta meta = new Meta();
+
+    @TableField(exist = false)
+    private List<SysMenuCase> children = Lists.newArrayList();
 }

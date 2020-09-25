@@ -110,3 +110,4 @@ lizhishen:
       - /**/*.png
       - /**/*.ico
       - /sys_dictionary/select_children_dict_by_num
+      - /basc_variety_case/nutritionallist

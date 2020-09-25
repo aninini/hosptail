@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.bjblkj.check.common.dto.output.Ret;
 import com.bjblkj.check.entities.BascCookBook;
+import com.bjblkj.check.entities.BascCookNutritional;
 import com.bjblkj.check.entities.input.CookBookQueryPara;
+import com.bjblkj.check.mapper.BascCookNutritionalMapper;
 import com.bjblkj.check.service.IBascCookBookService;
+import com.bjblkj.check.service.IBascCookNutritionalService;
 import com.bjblkj.check.utils.EmptyUtil;
 import com.bjblkj.check.utils.UserUtil;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +34,10 @@ public class BascCookBookController {
 
     @Resource
     private IBascCookBookService cookBookService;
+    @Resource
+    private IBascCookNutritionalService cookNutritionalService;
+    @Resource
+    private BascCookNutritionalMapper bascCookNutritionalMapper;
 
     @Transactional
     @ApiOperation("菜品信息查询")
@@ -45,6 +52,9 @@ public class BascCookBookController {
         if (cookBookQueryPara.getCookClassifyId()!= null) {
             wrapper.eq("cook_classify_id", cookBookQueryPara.getCookClassifyId());
         }
+        if (cookBookQueryPara.getDiningId()!= null) {
+            wrapper.eq("dining_id", cookBookQueryPara.getCookClassifyId());
+        }
         if (cookBookQueryPara.getCookId()!= null) {
             wrapper.eq("cook_id", cookBookQueryPara.getCookId());
         }
@@ -58,6 +68,7 @@ public class BascCookBookController {
         EmptyUtil.isEmpty(input.getCookName(),"名称不能为空");
         EmptyUtil.isEmpty(input.getPrice(),"单价不能为空");
         EmptyUtil.isEmpty(input.getCookClassifyId(),"适用人群 不能为空");
+        EmptyUtil.isEmpty(input.getDiningId(),"所属餐厅不能为空");
         input.setBusinessId(UserUtil.getUserBusinessId());
          EmptyUtil.bool(cookBookService.save(input),"操作失败");
         return Ret.ok("操作成功");
@@ -82,72 +93,31 @@ public class BascCookBookController {
 
 
     /**
-     * 制作过程
+     * 食谱对应的营养列表
      */
+    @Transactional
+    @ApiOperation("食谱对应的营养列表")
+    @GetMapping("/cnutrs/{cookId}")
+    public Ret getCookNutritionalSelfs(@PathVariable("cookId")Long cookId) {
+         List<BascCookNutritional> listByCookId= bascCookNutritionalMapper.getListByCookId(cookId);
+         return Ret.ok("操作成功",listByCookId);
+    }
 
-//    @PostMapping("/making")
-//    public Ret insertMakingProcess(@RequestBody MakingProcess components){
-//        if(StringUtils.isBlank(components.getMakingId())) {
-//            return Ret.err("编号不能为空");
-//        }
-//        int i = cookMappingService.insertMakingProcessMapper(components);
-//        return rtn(i);
-//    }
-
-//    @PutMapping("/making")
-//    public Ret updateMakingProcess(@RequestBody MakingProcess components){
-//        if(StringUtils.isBlank(components.getMakingId())) {
-//            return Ret.err("编号不能为空");
-//        }
-//        int i = cookMappingService.updateMakingProcessMapper(components);
-//        return rtn(i);
-//    }
-//
-//    @DeleteMapping("/making/{makingId}")
-//    public Ret deleteMakingProcess(@PathVariable(name = "makingId",required = true) String makingId){
-//        int i = cookMappingService.deleteMakingProcessMapper(makingId);
-//        return rtn(i);
-//    }
-//    @ApiOperation("制作过程列表")
-//    @GetMapping("/makings/{pageNum}/{pageSize}")
-//    public Ret makings(@PathVariable(name = "pageNum",required = true) Integer pageNum,@PathVariable(name = "pageSize",required = true) Integer pageSize){
-//        PageHelper.startPage(pageNum,pageSize,true);
-//        List<MakingProcess> nutrationalComponentsList = cookMappingService.getMakingProcessMapperList();
-//        PageInfo<MakingProcess> info = new PageInfo<MakingProcess>(nutrationalComponentsList);
-//        return Ret.ok(info);
-//    }
-//
-//    @GetMapping("/making/{makingId}")
-//    public Ret making(@PathVariable(name = "makingId",required = true) String makingId){
-//        MakingProcess making = cookMappingService.getMaking(makingId);
-//        return Ret.ok(making);
-//    }
-//
-//    /**
-//     * 食谱对应的营养列表
-//     */
-//    @ApiOperation("食谱对应的营养列表")
-//    @GetMapping("/cnutrs/{cookId}")
-//    public List<CookNutritionalSelf> getCookNutritionalSelfs(@PathVariable("cookId")String cookId) {
-//        return cookMappingService.selectListWithNut(cookId);
-//    }
+    @Transactional
+    @ApiOperation("食谱对应的营养列表")
+    @PostMapping("/addcnutr")
+    public Ret addCookNutr(@RequestBody BascCookNutritional cookNutritional) {
+        EmptyUtil.bool(cookNutritionalService.save(cookNutritional),"操作失败");
+        return Ret.ok("添加成功");
+    }
 //
 //    @PostMapping("/cnutr")
-//    public Ret addCookNutr(@RequestBody CookNutritional cookNutritional) {
-//        int i = cookMappingService.insertCNutr(cookNutritional);
-//        return rtn(i);
-//    }
-//    @PutMapping("/cnutr")
-//    public Ret updateCookNutr(@RequestBody CookNutritional cookNutritional) {
-//        int i = cookMappingService.updateCNutr(cookNutritional);
-//        return rtn(i);
-//    }
 //    public Ret addCookNutrs(@RequestBody List<CookNutritional> cookNutritionals) {
 //        int i = cookMappingService.insertCookNutritionalBatch(cookNutritionals);
 //        return rtn(i);
 //    }
 //
-//    @DeleteMapping("/cnutr/{cookNutId}")
+//    @GetMapping("/cnutr/{cookNutId}")
 //    public Ret delCookNutr(@PathVariable Integer cookNutId) {
 //        int i = cookMappingService.deleteCookNutritional(cookNutId);
 //        return rtn(i);

@@ -15,5 +15,7 @@ public class CookBookQueryPara extends BasePageQuery {
     private Long cookClassifyId;
     @ApiModelProperty(value = "企业名称")
     private String cookName;
+    @ApiModelProperty(value = "所属餐厅ID")
+    private Long diningId;
 
 }

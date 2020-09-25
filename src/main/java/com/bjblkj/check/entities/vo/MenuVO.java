@@ -43,6 +43,8 @@ public class MenuVO implements Serializable {
      */
     private String icon;
 
+    private Meta Meta;
+
     List<MenuVO> children = Lists.newArrayList();
 
 }

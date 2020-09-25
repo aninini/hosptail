@@ -91,14 +91,14 @@ public class BascVarietyCaseController {
     }
 
     /**
-     * 新增分类
+     * 新增商品分类
      *
      * @param
      * @return
      */
     @Transactional
     @PostMapping("/addCate")
-    @ApiOperation(value = "获取商品类型新增分类", httpMethod = "POST", response = Ret.class, notes = "获取商品类型新增分类")
+    @ApiOperation(value = "新增商品分类", httpMethod = "POST", response = Ret.class, notes = "新增商品分类")
     public Ret saveOneCatelog(@RequestBody BascVarietyCatalogue input) {
         input.setBusinessId(UserUtil.getUserBusinessId());
         EmptyUtil.bool(varietyCatalogueService.save(input), "添加失败");

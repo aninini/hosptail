@@ -1,5 +1,6 @@
 package com.bjblkj.check.entities.vo;
 
+import com.bjblkj.check.entities.SysMenuCase;
 import com.google.common.collect.Sets;
 import lombok.Data;
 
@@ -43,10 +44,9 @@ public class OperatorInfoVO implements Serializable {
      */
     private String typeId;
 
+
     private Set<String> roles = Sets.newHashSet();
 
-    private Set<MenuVO> menus = Sets.newHashSet();
-
-    private Set<ButtonVO> buttons = Sets.newHashSet();
+    private Set<SysMenuCase> menus = Sets.newHashSet();
 
 }

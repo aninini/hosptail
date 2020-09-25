@@ -80,5 +80,8 @@ public class BascCookBook extends BaseEntity<BascCookBook> {
     @ApiModelProperty(value = "所属企业ID")
     private Long businessId;
 
+    @ApiModelProperty(value = "所属餐厅ID")
+    private Long diningId;
+
 
 }

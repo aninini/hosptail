@@ -2,7 +2,6 @@ package com.bjblkj.check.service.impl;
 
 import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.bjblkj.check.common.SnowId.IdCommon;
-import com.bjblkj.check.entities.BascCookMaking;
 import com.bjblkj.check.entities.BascCookNutritional;
 import com.bjblkj.check.mapper.BascCookNutritionalMapper;
 import com.bjblkj.check.service.IBascCookNutritionalService;

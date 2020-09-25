@@ -27,4 +27,16 @@
             AND user_id = #{userId}
         </if>
     </select>
+
+    <select id="selectMenuByRoleId" resultType="com.bjblkj.check.entities.SysMenuCase">
+        SELECT
+        smc.*
+        FROM
+        sys_menu_case smc
+        LEFT JOIN  sys_role_menu srm ON srm.`menu_id` = smc.`id`
+        WHERE 1=1
+        <if test="id!=null">
+            AND srm.`role_id` = #{id}
+        </if>
+    </select>
 </mapper>

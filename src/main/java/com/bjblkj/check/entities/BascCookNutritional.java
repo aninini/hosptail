@@ -53,4 +53,7 @@ public class BascCookNutritional extends BaseEntity<BascCookNutritional> {
     @ApiModelProperty(value = "营养参考值5")
     private String reference;
 
+    @TableField(exist = false)
+    @ApiModelProperty(value = "营养成分Id")
+    private String nutName;
 }
